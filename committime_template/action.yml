@@ -29,7 +29,7 @@ runs:
       with:
         url: $url
         method: 'POST'
-        customHeaders: '{"User-Agent": "Pelorus-Webhook/committime-user-agent", "X-Pelorus-Event": "committime", "Content-Type"}'
+        customHeaders: '{"User-Agent": "Pelorus-Webhook/committime-user-agent", "X-Pelorus-Event": "committime", "Content-Type": "application/json"}'
         data: '{"app": $app, "commit_hash": $GITHUB_SHA, "image_sha": "sha256:$IMAGETIME_SHA"}'
         timeout: 4000
         preventFailureOnNoResponse: 'true' #remove after deploy
