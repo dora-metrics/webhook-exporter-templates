@@ -1,0 +1,7 @@
+name: Commit-time-test
+on: push
+jobs:
+    check-templates-working:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: .committime_template

@@ -1,0 +1,21 @@
+name: "Commit time action"
+description: "Composite action for Commit time metric for Pelorus."
+
+inputs:
+  app:
+    description: "App to monitor"
+    required: true
+  image_sha:
+    description: "Unique identifier of image. Default: $GITHUB_SHA"
+    default: $GITHUB_SHA
+  
+runs:
+  using: composite
+  steps:
+    - run: echo "IMAGETIME_SHA=`echo -n '$image_sha $GITHUB_RUN_ATTEMPT' | sha256sum | head -c 64`" >> $GITHUB_ENV
+      shell: bash
+    - run: echo $IMAGETIME_SHA
+      shell: bash
+      
+  
+  
