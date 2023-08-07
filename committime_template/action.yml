@@ -32,7 +32,7 @@ runs:
         customHeaders: '{"User-Agent": "Pelorus-Webhook/committime-user-agent", "X-Pelorus-Event": "committime", "Content-Type"}'
         data: '{"app": $app, "commit_hash": $GITHUB_SHA, "image_sha": "sha256:$IMAGETIME_SHA"}'
         timeout: 4000
-        preventFailureOnNoRespone: 'true' #remove after deploy
+        preventFailureOnNoResponse: 'true' #remove after deploy
     - name: Show Response
       run: |
         echo ${{ steps.sendTime.outputs.response }}
