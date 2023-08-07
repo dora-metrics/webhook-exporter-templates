@@ -12,6 +12,8 @@ inputs:
 runs:
   using: composite
   steps:
+    - run: echo "ImageSha= $image_sha and Attempt= $GITHUB_RUN_ATTEMPT"
+      shell: bash
     - run: echo "IMAGETIME_SHA=`echo -n '$image_sha $GITHUB_RUN_ATTEMPT' | sha256sum | head -c 64`" >> $GITHUB_ENV
       shell: bash
     - run: echo $IMAGETIME_SHA
