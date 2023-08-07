@@ -4,4 +4,6 @@ jobs:
     check-templates-working:
         runs-on: ubuntu-latest
         steps:
-            - uses: .committime_template
+            - uses: ./committime_template 
+              with: 
+                  APP: "GitHub-test"
