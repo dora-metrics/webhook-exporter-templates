@@ -5,6 +5,9 @@ inputs:
   app:
     description: "App to monitor"
     required: true
+  url:
+    description: "Url of pelorus endpoint"
+    default: http://webhook-exporter-pelorus.apps.grey.dev.iad2.dc.paas.redhat.com/pelorus/webhook
   image_sha:
     description: "Unique identifier of image. Default: $GITHUB_SHA"
     default: $GITHUB_SHA
@@ -18,6 +21,21 @@ runs:
       shell: bash
     - run: echo $IMAGETIME_SHA
       shell: bash
-      
+    - run: 'echo {"app": $app, "commit_hash": $GITHUB_SHA, "image_sha": "sha256:$IMAGETIME_SHA"}'
+      shell: bash
+    - name: Send Request
+      uses: fjogeleit/http-request-action@v1
+      id: sendTime
+      with:
+        url: $url
+        method: 'POST'
+        customHeaders: '{"User-Agent": "Pelorus-Webhook/committime-user-agent", "X-Pelorus-Event": "committime", "Content-Type"}'
+        data: '{"app": $app, "commit_hash": $GITHUB_SHA, "image_sha": "sha256:$IMAGETIME_SHA"}'
+        timeout: 4000
+        preventFailureOnNoRespone: 'true' #remove after deploy
+    - name: Show Response
+      run: |
+        echo ${{ steps.sendTime.outputs.response }}
+      shell: bash
   
   
