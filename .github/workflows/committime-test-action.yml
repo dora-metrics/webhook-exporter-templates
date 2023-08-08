@@ -1,0 +1,10 @@
+name: Commit-time-test
+on: push
+jobs:
+    check-committime-template:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ./committime_template 
+              with: 
+                  app: "GitHub-test"
