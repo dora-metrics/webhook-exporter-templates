@@ -1,4 +1,4 @@
-name: Commit-time-test
+name: Template-tests
 on: push
 jobs:
     check-committime-template:
@@ -7,4 +7,7 @@ jobs:
             - uses: actions/checkout@v3
             - uses: ./committime_template 
               with: 
-                  app: "GitHub-test"
+                  app: "GitHub-Deploy-test"
+            - uses: ./deploytime_template 
+              with: 
+                  app: "GitHub-Deploy-test"

@@ -1,0 +1,35 @@
+name: "Deploy time action"
+description: "Composite action for Deploy time metric for Pelorus."
+
+inputs:
+  app:
+    description: "App to monitor"
+    required: true
+  url:
+    description: "Url of pelorus endpoint"
+    default: http://webhook-exporter-pelorus.apps.grey.dev.iad2.dc.paas.redhat.com/pelorus/webhook
+  image_sha:
+    description: "Unique identifier of image. Default: $GITHUB_SHA"
+    default: $GITHUB_SHA
+  
+runs:
+  using: composite
+  steps:
+    - run: echo "IMAGETIME_SHA=`echo -n '$image_sha $GITHUB_RUN_ATTEMPT' | sha256sum | head -c 64`" >> $GITHUB_ENV
+      shell: bash
+    - run: echo "TIMESTAMP=$(date +'%s')" >> $GITHUB_ENV
+      shell: bash
+    - name: Send Request
+      uses: fjogeleit/http-request-action@v1
+      id: sendTime
+      with:
+        url: ${{ inputs.url }}
+        method: 'POST'
+        customHeaders: '{"User-Agent": "Pelorus-Webhook/deploytime-user-agent", "X-Pelorus-Event": "deploytime", "Content-Type": "application/json"}'
+        data: '{"app": "${{ inputs.app }}", "image_sha": "sha256:${{ env.IMAGETIME_SHA }}", "namespace": "${{ inputs.app }}", "timestamp": ${{ env.TIMESTAMP }}}'
+        timeout: 4000
+        preventFailureOnNoResponse: 'true' #remove after deploy
+    - name: Show Response
+      run: |
+        echo ${{ steps.sendTime.outputs.response }}
+      shell: bash
