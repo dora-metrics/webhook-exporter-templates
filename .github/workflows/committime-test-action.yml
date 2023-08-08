@@ -1,4 +1,4 @@
-name: Commit-time-test
+name: Template-tests
 on: push
 jobs:
     check-committime-template:
