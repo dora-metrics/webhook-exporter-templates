@@ -23,7 +23,7 @@ runs:
       shell: bash
     - run: echo "TIMESTAMP=$(date +'%s')" >> $GITHUB_ENV
       shell: bash
-    - run: 'echo "{\"app\": $app, \"commit_hash\": \"$GITHUB_SHA\", \"image_sha\": \"sha256:$IMAGETIME_SHA\", \"namespace\": ${{ input.app }}, \"timestamp\": $TIMESTAMP}"'
+    - run: 'echo "{\"app\": ${{ inputs.app }}, \"commit_hash\": \"$GITHUB_SHA\", \"image_sha\": \"sha256:$IMAGETIME_SHA\", \"namespace\": ${{ inputs.app }}, \"timestamp\": $TIMESTAMP}"'
       shell: bash
     - name: Send Request
       uses: fjogeleit/http-request-action@v1
@@ -32,7 +32,7 @@ runs:
         url: $url
         method: 'POST'
         customHeaders: '{"User-Agent": "Pelorus-Webhook/committime-user-agent", "X-Pelorus-Event": "committime", "Content-Type": "application/json"}'
-        data: '{\"app\": \"${{ input.app }}\", \"commit_hash\": \"$GITHUB_SHA\", \"image_sha\": \"sha256:$IMAGETIME_SHA\", \"namespace\": \"${{ input.app }}\", \"timestamp\": $TIMESTAMP}'
+        data: '{\"app\": \"${{ inputs.app }}\", \"commit_hash\": \"$GITHUB_SHA\", \"image_sha\": \"sha256:$IMAGETIME_SHA\", \"namespace\": \"${{ inputs.app }}\", \"timestamp\": $TIMESTAMP}'
         timeout: 4000
         preventFailureOnNoResponse: 'true' #remove after deploy
     - name: Show Response
