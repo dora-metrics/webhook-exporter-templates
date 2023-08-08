@@ -21,7 +21,7 @@ runs:
       shell: bash
     - run: echo $IMAGETIME_SHA
       shell: bash
-    - run: echo "TIMESTAMP=$(date + '%T')" >> $GITHUB_ENV
+    - run: echo "TIMESTAMP=$(date +'%s')" >> $GITHUB_ENV
       shell: bash
     - run: 'echo "{\"app\": \"${{ github.event.input.app }}\", \"commit_hash\": \"$GITHUB_SHA\", \"image_sha\": \"sha256:$IMAGETIME_SHA\", \"namespace\": \"${{ github.event.input.app }}\", \"timestamp\": $TIMESTAMP}"'
       shell: bash
