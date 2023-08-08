@@ -8,6 +8,6 @@ jobs:
             - uses: ./committime_template 
               with: 
                   app: "GitHub-Deploy-test"
-            - uses: ./committime_template 
+            - uses: ./deploytime_template 
               with: 
                   app: "GitHub-Deploy-test"
