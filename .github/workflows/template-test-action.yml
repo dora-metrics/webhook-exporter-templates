@@ -1,7 +1,7 @@
 name: Template-tests
 on: push
 jobs:
-    check-committime-template:
+    Template-tests:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
@@ -9,7 +9,7 @@ jobs:
               with: 
                   app: "GitHub-Deploy-test"
                   url: http://webhook-exporter-pelorus.apps.grey.dev.iad2.dc.paas.redhat.com/pelorus/webhook
-            - uses: ./deploytime_template 
+            - uses: ./deploytime_template
               with: 
-                  app: "GitHub-Deploy-test"
+                  app: "GitHub-Commit-test"
                   url: http://webhook-exporter-pelorus.apps.grey.dev.iad2.dc.paas.redhat.com/pelorus/webhook
