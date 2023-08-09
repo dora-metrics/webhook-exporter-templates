@@ -8,6 +8,8 @@ jobs:
             - uses: ./committime_template 
               with: 
                   app: "GitHub-Deploy-test"
+                  url: http://webhook-exporter-pelorus.apps.grey.dev.iad2.dc.paas.redhat.com/pelorus/webhook
             - uses: ./deploytime_template 
               with: 
                   app: "GitHub-Deploy-test"
+                  url: http://webhook-exporter-pelorus.apps.grey.dev.iad2.dc.paas.redhat.com/pelorus/webhook
