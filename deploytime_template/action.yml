@@ -6,8 +6,8 @@ inputs:
     description: "App to monitor"
     required: true
   url:
-    description: "Url of pelorus endpoint"
-    default: http://webhook-exporter-pelorus.apps.grey.dev.iad2.dc.paas.redhat.com/pelorus/webhook
+    description: "Url of Pelorus endpoint"
+    required: true
   image_sha:
     description: "Unique identifier of image. Default: $GITHUB_SHA"
     default: $GITHUB_SHA
