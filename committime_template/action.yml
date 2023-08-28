@@ -26,12 +26,11 @@ runs:
         url: ${{ inputs.url }}
         method: 'POST'
         customHeaders: '{"User-Agent": "Pelorus-Webhook/committime-user-agent", "X-Pelorus-Event": "committime", "Content-Type": "application/json"}'
-        data: '{"app": "${{ inputs.app }}", "commit_hash": "${{ github.sha }}", "image_sha": "sha256:${{ env.IMAGETIME_SHA }}", "namespace": "${{ inputs.app }}", "timestamp": ${{ env.TIMESTAMP }}}'
+        data: '{"app": "${{ inputs.app }}", "commit_hash": "${{ github.sha }}",
+               "image_sha": "sha256:${{ env.IMAGETIME_SHA }}", "namespace": "${{ inputs.app }}", "timestamp": ${{ env.TIMESTAMP }}}'
         timeout: 4000
         preventFailureOnNoResponse: 'true' #remove after deploy
     - name: Show Response
       run: |
         echo ${{ steps.sendTime.outputs.response }}
       shell: bash
-  
-  
