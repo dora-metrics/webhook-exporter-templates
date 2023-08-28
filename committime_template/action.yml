@@ -11,7 +11,7 @@ inputs:
   image_sha:
     description: "Unique identifier of image. Default: $GITHUB_SHA"
     default: $GITHUB_SHA
-  
+
 runs:
   using: composite
   steps:

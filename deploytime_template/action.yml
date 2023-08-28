@@ -26,7 +26,7 @@ runs:
         url: ${{ inputs.url }}
         method: 'POST'
         customHeaders: '{"User-Agent": "Pelorus-Webhook/deploytime-user-agent", "X-Pelorus-Event": "deploytime", "Content-Type": "application/json"}'
-        data: '{"app": "${{ inputs.app }}", "image_sha": "sha256:${{ env.IMAGETIME_SHA }}", 
+        data: '{"app": "${{ inputs.app }}", "image_sha": "sha256:${{ env.IMAGETIME_SHA }}",
               "namespace": "${{ inputs.app }}", "timestamp": ${{ env.TIMESTAMP }}}'
         timeout: 4000
         preventFailureOnNoResponse: 'true' #remove after deploy
