@@ -8,7 +8,7 @@ jobs:
             - name: yaml-lint
               uses: ibiqlik/action-yamllint@v3
               with:
-                  config_file: yamllint.conf
+                  config_file: yamllint.yaml
                   file_or_dir: .
 
     Template-tests:
