@@ -1,6 +1,17 @@
 name: Template-tests
 on: push
 jobs:
+    Yamllint:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v3
+          - name: yaml-lint
+            uses: ibiqlik/action-yamllint@v3
+            with:
+                config_file: yamllint.conf
+                file_or_dir: .
+
+
     Template-tests:
         runs-on: ubuntu-latest
         steps:
