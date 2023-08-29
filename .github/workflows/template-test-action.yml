@@ -1,15 +1,25 @@
 name: Template-tests
 on: push
 jobs:
+    Yamllint:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - name: yaml-lint
+              uses: ibiqlik/action-yamllint@v3
+              with:
+                  config_file: yamllint.yaml
+                  file_or_dir: .
+
     Template-tests:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
-            - uses: ./committime_template 
-              with: 
+            - uses: dora-metrics/action-templates/committime_template@master
+              with:
                   app: "GitHub-Deploy-test"
                   url: http://webhook-exporter-pelorus.apps.grey.dev.iad2.dc.paas.redhat.com/pelorus/webhook
-            - uses: ./deploytime_template
-              with: 
+            - uses: dora-metrics/action-templates/deploytime_template@master
+              with:
                   app: "GitHub-Commit-test"
                   url: http://webhook-exporter-pelorus.apps.grey.dev.iad2.dc.paas.redhat.com/pelorus/webhook
