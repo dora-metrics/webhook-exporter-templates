@@ -1,6 +1,6 @@
 .send-image:
   image:
-    name: registry.access.redhat.com/ubi9:latest
+    name: registry.access.redhat.com/ubi9/ubi-minimal:latest
 
 .send_committime_template:
   extends:
