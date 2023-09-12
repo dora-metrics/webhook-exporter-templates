@@ -1,0 +1,21 @@
+.send-image:
+  image:
+    name: registry.access.redhat.com/ubi9/ubi-minimal:latest
+
+.send_committime_template:
+  extends:
+    - .send-image
+  stage: test-send
+  script:
+    - export IMAGETIME_SHA=`echo -n "$IMAGE_SHA $CI_PIPELINE_CREATED_AT" | sha256sum | head -c 64`
+    - 'echo "Unique IMAGE SHA: $IMAGETIME_SHA"'
+    - >-
+        export PELORUS_COMMITTIME_RESULT=`curl -X POST -s ${URL}
+        -H 'User-Agent: Pelorus-Webhook/committime-user-agent'
+        -H 'X-Pelorus-Event: committime'
+        -H 'Content-Type: application/json'
+        --data-raw "{\"app\": \"${APP}\", \"commit_hash\": \"${CI_COMMIT_SHA}\", \"image_sha\": \"sha256:${IMAGETIME_SHA}\",
+         \"namespace\": \"${APP}\", \"timestamp\": $(date -d $CI_COMMIT_TIMESTAMP +"%s")}"`
+    - echo $PELORUS_COMMITTIME_RESULT
+    - >-
+        [ "$PELORUS_COMMITTIME_RESULT" = '{"http_response":"Webhook Received","http_response_code":200}' ] || exit 1
