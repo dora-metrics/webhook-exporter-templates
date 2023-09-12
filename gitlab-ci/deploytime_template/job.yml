@@ -1,0 +1,20 @@
+.send-image:
+  image:
+    name: registry.access.redhat.com/ubi9:latest
+
+.send_deploytime_template:
+  extends:
+    - .send-image
+  stage: test-send
+  script:
+    - export IMAGETIME_SHA=`echo -n "$IMAGE_SHA $CI_PIPELINE_CREATED_AT" | sha256sum | head -c 64`
+    - 'echo "Unique IMAGE SHA: $IMAGETIME_SHA"'
+    - >-
+        export PELORUS_DEPLOYTIME_RESULT=`curl -X POST -s ${URL}
+        -H 'User-Agent: Pelorus-Webhook/deploytime-user-agent'
+        -H 'X-Pelorus-Event: deploytime'
+        -H 'Content-Type: application/json'
+        --data-raw "{\"app\": \"${APP}\", \"image_sha\": \"sha256:${IMAGETIME_SHA}\", \"namespace\": \"${APP}\", \"timestamp\": $(date +%s)}"`
+    - echo $PELORUS_DEPLOYTIME_RESULT
+    - >-
+        [ "$PELORUS_DEPLOYTIME_RESULT" = '{"http_response":"Webhook Received","http_response_code":200}' ] || exit 1
