@@ -1,9 +1,9 @@
-# action-templates
+# webhook-exporter-templates
 
 ## Actions are now under development and are not tested until further notice
 
 ### Configuration
-Actions need input values of `app` and `url`
+All templates need input values of `app` and `url`
 
 #### App
 App variable defines under what name should be the apps be tracked. This name should be same for all pipelines regarding same code.
@@ -11,7 +11,7 @@ App variable defines under what name should be the apps be tracked. This name sh
 #### Url
 Internet endpoint which accepts Pelorus webhook data.
 
-### Example of usage
+### Example of action usage
 
 ```yaml
 name: Send-Data
