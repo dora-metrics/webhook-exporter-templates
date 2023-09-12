@@ -2,7 +2,7 @@
   image:
     name: registry.access.redhat.com/ubi9/ubi-minimal:latest
 
-.send_deploytime_template:
+.deploytime_template:
   extends:
     - .send-image
   stage: test-send
