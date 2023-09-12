@@ -15,11 +15,11 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
-            - uses: dora-metrics/action-templates/committime_template@master
+            - uses: dora-metrics/webhook-exporter-templates/github-actions/committime_template@master
               with:
                   app: "GitHub-Deploy-test"
                   url: http://webhook-exporter-pelorus.apps.grey.dev.iad2.dc.paas.redhat.com/pelorus/webhook
-            - uses: dora-metrics/action-templates/deploytime_template@master
+            - uses: dora-metrics/webhook-exporter-templates/github-actions/deploytime_template@master
               with:
                   app: "GitHub-Commit-test"
                   url: http://webhook-exporter-pelorus.apps.grey.dev.iad2.dc.paas.redhat.com/pelorus/webhook
